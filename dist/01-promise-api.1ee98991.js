@@ -118,7 +118,16 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/01-promise-api.js":[function(require,module,exports) {
-
+var promise = new Promise(function (resolve, reject) {
+  var canFulfill = Math.random() > 0.5;
+  setTimeout(function () {
+    if (canFulfill) {
+      resolve('Промис выполнился успешно, с результатом (исполнен, fulfilled)');
+    }
+    reject('Промис выполнился с ошибкой (отклонён, rejected)');
+  }, 2000);
+});
+console.log("promise:", promise);
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
