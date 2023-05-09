@@ -127,7 +127,33 @@ var promise = new Promise(function (resolve, reject) {
     reject('Промис выполнился с ошибкой (отклонён, rejected)');
   }, 2000);
 });
-console.log("promise:", promise);
+
+// promise.then(onFulfilled, onRejected);
+
+function onFulfilled(result) {
+  console.log("onFulfilled -> onFulfilled:");
+  console.log(result);
+}
+;
+function onRejected(error) {
+  console.log("onRejected -> onRejected:");
+  console.log(error);
+}
+;
+promise.then(onFulfilled).then(function (x) {
+  console.log("x :", x);
+  return 10;
+}).then(function (y) {
+  console.log("y:", y);
+  throw new Error('ошибка в третьем then');
+  return 5;
+}).then(function (z) {
+  console.log("z:", z);
+}).catch(function (error) {
+  return console.log(error);
+}).finally(function () {
+  return console.log('Я буду выполнен в любом случае');
+});
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -153,7 +179,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59383" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64932" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
