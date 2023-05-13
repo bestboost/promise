@@ -1,13 +1,25 @@
 import '../css/common.css';
 import pokemopCardTpl from '../templates/pokemon-card.hbs';
 
-fetch('https://pokeapi.co/api/v2/pokemon/2').then(response => {
+const refs = {
+     cardContainer: document.querySelector('.js-card-container'),
+
+};
+
+
+fetchPokemon(1)
+.then(renderPokemonCard)
+.catch(error =>  error)
+
+function fetchPokemon(pokemonId){
+return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`) 
+.then(response => {
      return response.json();     
-}).then(pokemon => {
-     console.log("fetch  pokemon:", pokemon);
-     const pokemonMarkup = pokemopCardTpl(pokemon);
-     console.log("fetch  pokemonMarkup:", pokemonMarkup)
-     
-}).catch(error => {
-     console.log("fetch  error:", error)    
-});
+})
+
+};
+
+function renderPokemonCard(pokemon) {
+     const markup = pokemopCardTpl(pokemon);
+      refs.cardContainer.innerHTML = markup; 
+};
