@@ -172,79 +172,10 @@ module.exports = reloadCSS;
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/03-racetrack.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/01-fetch-api.js":[function(require,module,exports) {
 "use strict";
 
 require("../css/common.css");
-var horses = ['Secretariat', 'Eclipse', 'West Australian', 'Flying Fox', 'Seabiscuit'];
-var raceCount = 0;
-var refs = {
-  startBtn: document.querySelector('.js-start-race'),
-  winerField: document.querySelector('.js-winner'),
-  progressField: document.querySelector('.js-progress'),
-  tableBody: document.querySelector('.js-results-table > tbody')
-};
-refs.startBtn.addEventListener('click', onStart);
-function onStart() {
-  raceCount += 1;
-  var promises = horses.map(run);
-  updateWinnerField('');
-  updateProgressField('🤖 Заезд начался, ставки не принимаются!');
-  determineWiner(promises);
-  waitForAll(promises);
-}
-;
-function determineWiner(horsesP) {
-  Promise.race(horsesP).then(function (_ref) {
-    var horse = _ref.horse,
-      time = _ref.time;
-    updateWinnerField("\uD83C\uDF89 \u041F\u043E\u0431\u0435\u0434\u0438\u043B ".concat(horse, ", \u0444\u0438\u043D\u0438\u0448\u0438\u0440\u043E\u0432\u0430\u0432 \u0437\u0430 ").concat(time, "\n          \u0432\u0440\u0435\u043C\u0435\u043D\u0438"));
-    updateResultsTable({
-      horse: horse,
-      time: time,
-      raceCount: raceCount
-    });
-  });
-}
-;
-function waitForAll(horsesP) {
-  Promise.all(horsesP).then(function () {
-    updateProgressField('📝 Заезд окончен, принимаются ставки.');
-  });
-}
-;
-function updateWinnerField(message) {
-  refs.winerField.textContent = message;
-}
-;
-function updateProgressField(message) {
-  refs.progressField.textContent = message;
-}
-;
-function updateResultsTable(_ref2) {
-  var horse = _ref2.horse,
-    time = _ref2.time,
-    raceCount = _ref2.raceCount;
-  var tr = "<tr><td>".concat(raceCount, "</td><td>").concat(horse, "</td><td>").concat(time, "</td></tr>");
-  refs.tableBody.insertAdjacentHTML('beforeend', tr);
-}
-;
-function run(horse) {
-  return new Promise(function (resolve) {
-    var time = getRandomTime(2000, 3500);
-    setTimeout(function () {
-      resolve({
-        horse: horse,
-        time: time
-      });
-    }, time);
-  });
-}
-;
-function getRandomTime(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-;
 },{"../css/common.css":"css/common.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -414,5 +345,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/03-racetrack.js"], null)
-//# sourceMappingURL=/03-racetrack.4f389e3e.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/01-fetch-api.js"], null)
+//# sourceMappingURL=/01-fetch-api.9a0e3e93.js.map
