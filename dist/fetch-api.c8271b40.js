@@ -1852,20 +1852,47 @@ var templateFunction = _handlebars.default.template({
 });
 var _default = templateFunction;
 exports.default = _default;
-},{"handlebars/dist/handlebars.runtime":"../node_modules/handlebars/dist/handlebars.runtime.js"}],"js/fetch-api.js":[function(require,module,exports) {
+},{"handlebars/dist/handlebars.runtime":"../node_modules/handlebars/dist/handlebars.runtime.js"}],"js/api-service.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var BASE_URL = 'https://pokeapi.co/api/v2';
+function fetchPokemon(pokemonId) {
+  return fetch("".concat(BASE_URL, "/pokemon/").concat(pokemonId)).then(function (response) {
+    return response.json();
+  });
+}
+var _default = {
+  fetchPokemon: fetchPokemon
+};
+exports.default = _default;
+},{}],"js/fetch-api.js":[function(require,module,exports) {
 "use strict";
 
 require("../css/common.css");
 var _pokemonCard = _interopRequireDefault(require("../templates/pokemon-card.hbs"));
+var _apiService = _interopRequireDefault(require("./api-service"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var refs = {
-  cardContainer: document.querySelector('.js-card-container')
+  cardContainer: document.querySelector('.js-card-container'),
+  searchForm: document.querySelector('.js-search-form')
 };
-fetchPokemon(1).then(renderPokemonCard).catch(function (error) {
-  return error;
-});
+refs.searchForm.addEventListener('submit', onSearch);
+function onSearch(e) {
+  e.preventDefault();
+  var form = e.currentTarget;
+  var searchQuery = form.elements.query.value;
+  fetchPokemon(searchQuery).then(renderPokemonCard).catch(onFetchError).finally(function () {
+    return form.reset();
+  });
+}
+;
 function fetchPokemon(pokemonId) {
-  return fetch("https://pokeapi.co/api/v2/pokemon/".concat(pokemonId)).then(function (response) {
+  var url = "https://pokeapi.co/api/v2/pokemon/".concat(pokemonId);
+  return fetch(url).then(function (response) {
     return response.json();
   });
 }
@@ -1875,7 +1902,11 @@ function renderPokemonCard(pokemon) {
   refs.cardContainer.innerHTML = markup;
 }
 ;
-},{"../css/common.css":"css/common.css","../templates/pokemon-card.hbs":"templates/pokemon-card.hbs"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+function onFetchError(error) {
+  alert('Упс, что-то пошло не так и мы не нашли вашего покемона!');
+}
+;
+},{"../css/common.css":"css/common.css","../templates/pokemon-card.hbs":"templates/pokemon-card.hbs","./api-service":"js/api-service.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1900,7 +1931,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52925" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64046" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
