@@ -12,7 +12,7 @@ fetchPokemon(1)
 .catch(error =>  error)
 
 function fetchPokemon(pokemonId){
-return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`) 
+return fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)  
 .then(response => {
      return response.json();     
 })
