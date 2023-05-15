@@ -1869,31 +1869,36 @@ var _default = {
   fetchPokemon: fetchPokemon
 };
 exports.default = _default;
+},{}],"js/get-refs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = getRefs;
+function getRefs() {
+  return {
+    cardContainer: document.querySelector('.js-card-container'),
+    searchForm: document.querySelector('.js-search-form')
+  };
+}
+;
 },{}],"js/fetch-api.js":[function(require,module,exports) {
 "use strict";
 
 require("../css/common.css");
 var _pokemonCard = _interopRequireDefault(require("../templates/pokemon-card.hbs"));
 var _apiService = _interopRequireDefault(require("./api-service"));
+var _getRefs = _interopRequireDefault(require("./get-refs"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-var refs = {
-  cardContainer: document.querySelector('.js-card-container'),
-  searchForm: document.querySelector('.js-search-form')
-};
+var refs = (0, _getRefs.default)();
 refs.searchForm.addEventListener('submit', onSearch);
 function onSearch(e) {
   e.preventDefault();
   var form = e.currentTarget;
   var searchQuery = form.elements.query.value;
-  fetchPokemon(searchQuery).then(renderPokemonCard).catch(onFetchError).finally(function () {
+  _apiService.default.fetchPokemon(searchQuery).then(renderPokemonCard).catch(onFetchError).finally(function () {
     return form.reset();
-  });
-}
-;
-function fetchPokemon(pokemonId) {
-  var url = "https://pokeapi.co/api/v2/pokemon/".concat(pokemonId);
-  return fetch(url).then(function (response) {
-    return response.json();
   });
 }
 ;
@@ -1906,7 +1911,7 @@ function onFetchError(error) {
   alert('Упс, что-то пошло не так и мы не нашли вашего покемона!');
 }
 ;
-},{"../css/common.css":"css/common.css","../templates/pokemon-card.hbs":"templates/pokemon-card.hbs","./api-service":"js/api-service.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../css/common.css":"css/common.css","../templates/pokemon-card.hbs":"templates/pokemon-card.hbs","./api-service":"js/api-service.js","./get-refs":"js/get-refs.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1931,7 +1936,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64046" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58191" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
