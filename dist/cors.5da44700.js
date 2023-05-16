@@ -176,6 +176,12 @@ module.hot.accept(reloadCSS);
 "use strict";
 
 require("../css/common.css");
+// fetch('http://pokeapi.co/api/v2/pokemon/ditto')
+// .then(r => r.json)
+// .then(console.log);
+fetch('https://lpj-weather-service.herokuapp.com/weather?lat=39.916668&lon=116.383331').then(function (r) {
+  return r.json;
+}).then(console.log);
 },{"../css/common.css":"css/common.css"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -201,7 +207,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58191" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51004" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
